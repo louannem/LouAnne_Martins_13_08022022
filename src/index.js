@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Error from './pages/Error'
 import Header from './components/Header';
 import Footer from './components/Footer';
+import User from './pages/User';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Home />} ></Route>
         <Route path="/login" element={<Login />} ></Route>
+        <Route path="/profile" element={<User />}></Route>
         <Route path="*" element={<Error />} ></Route>
       </Routes>
       <Footer />
