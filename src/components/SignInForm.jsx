@@ -1,36 +1,33 @@
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { login } from '../utils/service/fetchAPI'
+import { store } from '../utils/store'
+import { userLogin } from '../features/login'
+import { useNavigate } from 'react-router-dom'
 import '../utils/styles/SignInForm.css'
 
 export default function SignInForm() {
-    const data = {
-        email : 'steve@rogers.com',
-        password: 'password456'
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
+
+    const dispatch = useDispatch()
+
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+      let path = `/profile`; 
+      navigate(path);
     }
 
-    /**
-     * Connects the user to the app
-     * @param {string} e prevent button's default behaviour
-     */
-    const login = (e) => {
-        e.preventDefault()
-        fetch('http://localhost:3001/api/v1/user/login', {
-            method: 'POST', // or 'PUT'
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-          .then(response => response.json())
-          .then(data => {
-              console.log(data)
-            return true
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          })
+    const userInfo = {
+        email : email,
+        password: password
     }
 
-    
+    const isLogged = store.getState()
+
+
     return(
+        
         <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In</h1>
@@ -39,12 +36,12 @@ export default function SignInForm() {
             <form>
             <div className="input-wrapper">
                 <label>Username</label>
-                <input type="text" id="username" />
+                <input type="text" id="username" onChange={(e) => {setEmail(e.target.value)}} />
             </div>
 
             <div className="input-wrapper">
                 <label>Password</label>
-                <input type="password" id="password" />
+                <input type="password" id="password" onChange={(e) => {setPassword(e.target.value)}} />
             </div>
 
             <div className="input-remember">
@@ -52,7 +49,12 @@ export default function SignInForm() {
                 <label>Remember me</label>
             </div>
         
-            <button onClick={login} className="sign-in-button">Sign In</button> 
+            <button onClick={(e)=> {
+                e.preventDefault()
+                store.dispatch(userLogin())               
+                login(userInfo)
+                routeChange()
+            }} className="sign-in-button">Sign In</button> 
     
             </form>
         </section>
