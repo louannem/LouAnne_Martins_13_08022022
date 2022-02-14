@@ -1,5 +1,4 @@
-import { store } from "../store"
-/**
+    /**
      * Connects the user to the app
      * @param {string} e prevent button's default behaviour
      */
@@ -14,7 +13,8 @@ import { store } from "../store"
       })
       .then(response => response.json())
       .then(data => {
-          console.log(data)
+        console.log(data)
+        
         return data
       })
       .catch((error) => {

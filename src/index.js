@@ -12,8 +12,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import User from './pages/User';
 
-const loggedIn = store.getState().login
-console.log(loggedIn.logged)
 
 ReactDOM.render(
   <React.StrictMode>

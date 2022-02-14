@@ -10,8 +10,7 @@ const LOGGED_OUT = "logout"
 
 //Actions
 export const userLogin = (data) => ( { type : LOGGED_IN, payload: data})
-export const userLogout = { type : LOGGED_OUT}
-
+export const userLogout = () => ({ type : LOGGED_OUT})
 
 //Reducer
 export function userReducer(state = intialState, action) {

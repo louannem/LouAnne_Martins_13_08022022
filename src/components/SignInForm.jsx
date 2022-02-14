@@ -54,6 +54,7 @@ export default function SignInForm() {
                 store.dispatch(userLogin())               
                 login(userInfo)
                 routeChange()
+                console.log(isLogged)
             }} className="sign-in-button">Sign In</button> 
     
             </form>
