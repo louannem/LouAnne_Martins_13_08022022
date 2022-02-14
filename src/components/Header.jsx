@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { store } from '../utils/store'
-import { userLogout } from '../features/login'
+import { userLogout, selectorUserLog } from '../features/login'
 import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
 import { useSelector } from 'react-redux'
 
 export default function Header() {
-    const log = store.getState().login
-    const loggedIn = useSelector((state) => state.login.logged)
-    console.log(loggedIn)
+    const loggedIn = useSelector(selectorUserLog())
     const dispatch = useDispatch()
 
     return(

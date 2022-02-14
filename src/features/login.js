@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux"
+
 export const intialState = {
     logged: false,
     token : null
@@ -30,3 +32,7 @@ export function userReducer(state = intialState, action) {
 
     return state
 }
+
+
+//Selectors
+export const selectorUserLog = () => { return (state) => state.login.logged}
