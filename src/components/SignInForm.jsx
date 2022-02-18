@@ -1,16 +1,18 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { login } from '../utils/service/fetchAPI'
+import { login, logAPI } from '../utils/service/fetchAPI'
 import { store } from '../utils/store'
-import { userLogin } from '../features/login'
+import { userLogin, selectToken } from '../features/login'
 import { useNavigate } from 'react-router-dom'
 import '../utils/styles/SignInForm.css'
+import { useSelector } from 'react-redux'
 
 export default function SignInForm() {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
 
     const dispatch = useDispatch()
+    const getToken = useSelector(selectToken())
 
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
@@ -18,13 +20,16 @@ export default function SignInForm() {
       navigate(path);
     }
 
+    const handleSubmit = (e) => { 
+        dispatch(logAPI(userInfo))           
+        e.preventDefault()
+        routeChange()
+    }
+
     const userInfo = {
         email : email,
         password: password
     }
-
-    const isLogged = store.getState()
-
 
     return(
         
@@ -33,7 +38,7 @@ export default function SignInForm() {
             <h1>Sign In</h1>
 
 
-            <form>
+            <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
                 <label>Username</label>
                 <input type="text" id="username" onChange={(e) => {setEmail(e.target.value)}} />
@@ -49,13 +54,7 @@ export default function SignInForm() {
                 <label>Remember me</label>
             </div>
         
-            <button onClick={(e)=> {
-                e.preventDefault()
-                store.dispatch(userLogin())               
-                login(userInfo)
-                routeChange()
-                console.log(isLogged)
-            }} className="sign-in-button">Sign In</button> 
+            <button className="sign-in-button">Sign In</button> 
     
             </form>
         </section>

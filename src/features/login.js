@@ -1,12 +1,10 @@
-import { useSelector } from "react-redux"
-
 export const intialState = {
     logged: false,
     token : null
 }
 
 //Const pour actions
-const LOGGED_IN = "login"
+export const LOGGED_IN = "login"
 const LOGGED_OUT = "logout"
 
 
@@ -19,14 +17,16 @@ export function userReducer(state = intialState, action) {
     if(action.type === LOGGED_IN) {
         return{
             ...state,
-            logged : !state.logged
+            logged : true,
+            token: action.payload
         }
     }
 
     if(action.type === LOGGED_OUT) {
         return {
             ...state,
-            logged: !state.logged
+            logged: false,
+            token: null
         }
     }
 
@@ -36,3 +36,4 @@ export function userReducer(state = intialState, action) {
 
 //Selectors
 export const selectorUserLog = () => { return (state) => state.login.logged}
+export const selectToken = () => { return (state) => state.login}
