@@ -42,5 +42,8 @@ export const logout = () => {
 
 
 const getData = () => {
-
+  const token = localStorage.getItem('token')
+  return(dispatch) => {
+    
+  }
 }
