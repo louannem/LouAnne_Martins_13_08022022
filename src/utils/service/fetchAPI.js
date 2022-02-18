@@ -1,27 +1,11 @@
-import { userLogin } from "../../features/login";
+import { userLogin, userLogout } from "../../features/login";
 
-    /**
-     * Connects the user to the app
-     * @param {string} e prevent button's default behaviour
-     */
- export const login =  (data) => {
-     fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response =>  response.json())
-      .then(data => {
-        return data
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      })    
-    
-}
 
+/**
+ * Thunk to connect the user to the app
+ * @param {*} data user login data collected from the API
+ * @returns object fetched data
+ */
 export const logAPI = (data) => {
   return (dispatch) => {
     fetch('http://localhost:3001/api/v1/user/login', {
@@ -34,9 +18,29 @@ export const logAPI = (data) => {
       .then(response =>  response.json())
       .then(data => {
         dispatch(userLogin(data.body.token))
+        localStorage.setItem('token', data.body.token)
       })
       .catch((error) => {
         console.error('Error:', error);
       })  
   }
+}
+
+
+
+/**
+ * Thunk to log out the user & removes their token
+ * @returns thunk
+ */
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(userLogout())
+    localStorage.removeItem('token')
+  }
+}
+
+
+
+const getData = () => {
+
 }

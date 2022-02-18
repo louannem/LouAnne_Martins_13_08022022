@@ -17,7 +17,7 @@ export default function SignInForm() {
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
       let path = `/profile`; 
-      navigate(path);
+      navigate(path)
     }
 
     const handleSubmit = (e) => { 

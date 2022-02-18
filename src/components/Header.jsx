@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { store } from '../utils/store'
-import { userLogout, selectorUserLog } from '../features/login'
+import { logout } from '../utils/service/fetchAPI'
+import { selectorUserLog } from '../features/login'
 import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
 import { useSelector } from 'react-redux'
@@ -28,7 +29,7 @@ export default function Header() {
             </Link>
             }
             {loggedIn  &&
-            <Link to="/" onClick={() => { store.dispatch(userLogout())  }} className="main-nav-item">
+            <Link to="/" onClick={() => { dispatch(logout())  }} className="main-nav-item">
                 <i className="fa fa-sign-out"></i>
                 Sign Out
             </Link>
