@@ -36,7 +36,7 @@ export const logAPI = (data) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch(userLogout())
-    localStorage.removeItem('token')
+    localStorage.clear()
   }
 }
 
@@ -55,6 +55,8 @@ export const getData = (token) => {
     .then(response => response.json())
     .then( data => {
       dispatch(userData(data))
+      localStorage.setItem('firstname', data.body.firstName)
+      localStorage.setItem('lastname', data.body.lastName)
       console.log(data)
     })
     .catch( (error) => {

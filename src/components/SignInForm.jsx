@@ -1,17 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import {  logAPI, getData } from '../utils/service/fetchAPI'
-import { selectToken } from '../features/login'
+import {  logAPI}  from '../utils/service/fetchAPI'
 import { useNavigate } from 'react-router-dom'
 import '../utils/styles/SignInForm.css'
-import { useSelector } from 'react-redux'
 
 export default function SignInForm() {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
 
     const dispatch = useDispatch()
-
     
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
@@ -23,9 +20,6 @@ export default function SignInForm() {
         dispatch(logAPI(userInfo))           
         e.preventDefault()
         routeChange()
-        //const getToken = localStorage.getItem('token')
-        //dispatch(getData(getToken))
-
     }
 
     const userInfo = {
