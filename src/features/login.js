@@ -29,9 +29,20 @@ export function userReducer(state = intialState, action) {
         return {
             ...state,
             logged: false,
-            token: null
+            token: null,
+            data: null
         }
     }
+
+    if(action.type === USER_DATA) {
+        return {
+            ...state,
+            logged: true,
+            data: action.payload
+        }
+    }
+
+ 
 
     return state
 }

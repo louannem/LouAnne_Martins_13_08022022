@@ -43,7 +43,6 @@ export const logout = () => {
 
 
 export const getData = (token) => {
-  
   return(dispatch) => {
     fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'POST',
