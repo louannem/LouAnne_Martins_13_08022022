@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import {  logAPI } from '../utils/service/fetchAPI'
+import {  logAPI, getData } from '../utils/service/fetchAPI'
 import { selectToken } from '../features/login'
 import { useNavigate } from 'react-router-dom'
 import '../utils/styles/SignInForm.css'
@@ -11,8 +11,8 @@ export default function SignInForm() {
     const [password, setPassword] = useState(null)
 
     const dispatch = useDispatch()
-    const getToken = useSelector(selectToken())
 
+    
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
       let path = `/profile`; 
@@ -23,6 +23,9 @@ export default function SignInForm() {
         dispatch(logAPI(userInfo))           
         e.preventDefault()
         routeChange()
+        //const getToken = localStorage.getItem('token')
+        //dispatch(getData(getToken))
+
     }
 
     const userInfo = {

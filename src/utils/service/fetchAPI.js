@@ -1,4 +1,4 @@
-import { userLogin, userLogout } from "../../features/login";
+import { userData, userLogin, userLogout } from "../../features/login";
 
 
 /**
@@ -18,6 +18,7 @@ export const logAPI = (data) => {
       .then(response =>  response.json())
       .then(data => {
         dispatch(userLogin(data.body.token))
+        dispatch(getData(data.body.token))
         localStorage.setItem('token', data.body.token)
       })
       .catch((error) => {
@@ -41,9 +42,24 @@ export const logout = () => {
 
 
 
-const getData = () => {
-  const token = localStorage.getItem('token')
+export const getData = (token) => {
+  
   return(dispatch) => {
+    fetch('http://localhost:3001/api/v1/user/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    },)
+    .then(response => response.json())
+    .then( data => {
+      dispatch(userData(data))
+      console.log(data)
+    })
+    .catch( (error) => {
+      console.log(error)
+    })
     
   }
 }

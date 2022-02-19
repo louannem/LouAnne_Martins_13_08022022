@@ -1,16 +1,19 @@
 export const intialState = {
     logged: false,
-    token : null
+    token : null, 
+    data: null
 }
 
 //Const pour actions
 export const LOGGED_IN = "login"
 const LOGGED_OUT = "logout"
+const USER_DATA = "userData"
 
 
 //Actions
 export const userLogin = (data) => ( { type : LOGGED_IN, payload: data})
 export const userLogout = () => ({ type : LOGGED_OUT})
+export const userData = (data) => ({type: USER_DATA, payload: data}) 
 
 //Reducer
 export function userReducer(state = intialState, action) {
