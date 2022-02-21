@@ -10,6 +10,7 @@ export default function SignInForm() {
 
     const dispatch = useDispatch()
     
+    
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
       let path = `/profile`; 
@@ -19,13 +20,18 @@ export default function SignInForm() {
     const handleSubmit = (e) => { 
         dispatch(logAPI(userInfo))           
         e.preventDefault()
-        routeChange()
+
+        setTimeout(() => {
+            routeChange()
+        }, 1000);
     }
 
     const userInfo = {
         email : email,
         password: password
     }
+
+ 
 
     return(
         

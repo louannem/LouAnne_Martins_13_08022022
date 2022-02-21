@@ -1,4 +1,5 @@
-import { userData, userLogin, userLogout } from "../../features/login";
+import { useSelector } from "react-redux";
+import {  selectToken, userData, userLogin, userLogout } from "../../features/login";
 
 
 /**
@@ -20,6 +21,7 @@ export const logAPI = (data) => {
         dispatch(userLogin(data.body.token))
         dispatch(getData(data.body.token))
         localStorage.setItem('token', data.body.token)
+
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -41,6 +43,13 @@ export const logout = () => {
 }
 
 
+export const getProfile = () => {
+  return(dispatch, getState) => {
+    const token  = selectToken(getState())
+    console.log(token)
+  }
+}
+
 
 export const getData = (token) => {
   return(dispatch) => {
@@ -56,11 +65,10 @@ export const getData = (token) => {
       dispatch(userData(data))
       localStorage.setItem('firstname', data.body.firstName)
       localStorage.setItem('lastname', data.body.lastName)
-      console.log(data)
     })
     .catch( (error) => {
       console.log(error)
     })
-    
+   
   }
 }

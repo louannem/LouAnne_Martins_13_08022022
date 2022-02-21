@@ -41,13 +41,10 @@ export function userReducer(state = intialState, action) {
             data: action.payload
         }
     }
-
- 
-
     return state
 }
 
 
 //Selectors
 export const selectorUserLog = () => { return (state) => state.login.logged}
-export const selectToken = () => { return (state) => state.login}
+export const selectToken = (state) => state.login
