@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {  selectToken, userData, userLogin, userLogout } from "../../features/login";
 
 
@@ -24,6 +23,7 @@ export const logAPI = (data) => {
 
       })
       .catch((error) => {
+        //To add : error handling
         console.error('Error:', error);
       })  
   }

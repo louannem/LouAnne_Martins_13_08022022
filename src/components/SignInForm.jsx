@@ -5,21 +5,33 @@ import { useNavigate } from 'react-router-dom'
 import '../utils/styles/SignInForm.css'
 
 export default function SignInForm() {
+    //Local props to get user's id
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
 
+    const loginButton = document.getElementById('signInButton')
+    
     const dispatch = useDispatch()
     
-    
+
+    /**
+     * hook to redirect the user once connected
+     */
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
       let path = `/profile`; 
       navigate(path)
     }
 
+    /**
+     * Functions & thunks to execute once the form has been submited
+     * @param {*} e event
+     */
     const handleSubmit = (e) => { 
-        dispatch(logAPI(userInfo))           
         e.preventDefault()
+        dispatch(logAPI(userInfo))           
+
+        loginButton.innerText = "Connexion..."
 
         setTimeout(() => {
             routeChange()
@@ -30,8 +42,6 @@ export default function SignInForm() {
         email : email,
         password: password
     }
-
- 
 
     return(
         
@@ -56,7 +66,7 @@ export default function SignInForm() {
                 <label>Remember me</label>
             </div>
         
-            <button className="sign-in-button">Sign In</button> 
+            <button className="sign-in-button" id='signInButton'>Sign In</button> 
     
             </form>
         </section>
