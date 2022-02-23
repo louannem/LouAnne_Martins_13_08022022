@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 
 export default function User() { 
-    const loggedUser = store.getState().login.logged
+    const loggedUser = store.getState().user.logged
     let navigate = useNavigate(); 
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../utils/service/fetchAPI'
-import { selectorUserLog } from '../features/login'
+import { selectorUserLog } from '../features/user'
 import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
 import { useSelector } from 'react-redux'

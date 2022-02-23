@@ -8,12 +8,14 @@ export const intialState = {
 export const LOGGED_IN = "login"
 const LOGGED_OUT = "logout"
 const USER_DATA = "userData"
+const USER_EDIT = "userEdit"
 
 
 //Actions
 export const userLogin = (data) => ( { type : LOGGED_IN, payload: data})
 export const userLogout = () => ({ type : LOGGED_OUT})
 export const userData = (data) => ({type: USER_DATA, payload: data}) 
+export const userEdit = (firstname, lastname) => ({ type: USER_EDIT})
 
 //Reducer
 export function userReducer(state = intialState, action) {
@@ -46,5 +48,5 @@ export function userReducer(state = intialState, action) {
 
 
 //Selectors
-export const selectorUserLog = () => { return (state) => state.login.logged}
-export const selectToken = (state) => state.login
+export const selectorUserLog = () => { return (state) => state.user.logged}
+export const selectToken = (state) => state.user

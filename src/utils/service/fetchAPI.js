@@ -1,4 +1,4 @@
-import {  selectToken, userData, userLogin, userLogout } from "../../features/login";
+import {  selectToken, userData, userLogin, userLogout } from "../../features/user";
 
 
 /**
@@ -20,7 +20,6 @@ export const logAPI = (data) => {
         dispatch(userLogin(data.body.token))
         dispatch(getData(data.body.token))
         localStorage.setItem('token', data.body.token)
-
       })
       .catch((error) => {
         //To add : error handling
