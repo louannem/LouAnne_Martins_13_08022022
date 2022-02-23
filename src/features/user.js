@@ -49,4 +49,5 @@ export function userReducer(state = intialState, action) {
 
 //Selectors
 export const selectorUserLog = () => { return (state) => state.user.logged}
-export const selectToken = (state) => state.user
+export const selectUserName = (state) => state.user.data 
+export const selectData = (state) => state.user

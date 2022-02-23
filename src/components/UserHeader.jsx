@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { store } from "../utils/store"
-import { selectToken } from "../features/user"
+import { selectData } from "../features/user"
 import { editUser } from "../utils/service/fetchAPI"
 
 export default function UserHeader() {
-    const login = useSelector(selectToken)
+    const login = useSelector(selectData)
     const dispatch = useDispatch()
     const token = store.getState().user.token
+    
 
     //Component local data
     const [firstName, setFirstName] = useState('')
