@@ -42,14 +42,6 @@ export const logout = () => {
 }
 
 
-export const getProfile = () => {
-  return(dispatch, getState) => {
-    const token  = selectToken(getState())
-    console.log(token)
-  }
-}
-
-
 export const getData = (token) => {
   return(dispatch) => {
     fetch('http://localhost:3001/api/v1/user/profile', {
@@ -69,5 +61,21 @@ export const getData = (token) => {
       console.log(error)
     })
    
+  }
+}
+
+
+export const editUser = (token, user) => {
+  return(dispatch) => {
+    fetch('http://localhost:3001/api/v1/user/profile', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body : JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then (data => console.log(data))
   }
 }

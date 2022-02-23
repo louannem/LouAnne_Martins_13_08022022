@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { store } from "../utils/store"
 import { selectToken } from "../features/user"
-import { getProfile } from "../utils/service/fetchAPI"
+import { editUser } from "../utils/service/fetchAPI"
 
 export default function UserHeader() {
     const login = useSelector(selectToken)
     const dispatch = useDispatch()
+    const token = store.getState().user.token
+    console.log(token)
 
     //Component local data
     const [firstName, setFirstName] = useState('')
@@ -30,9 +33,10 @@ export default function UserHeader() {
         editForm.style.display="none"
         editButton.style.display = "inline-block"
         username.style.display = "inline-block"
-        console.log(newName)
-    }
 
+        dispatch(editUser(token, newName))
+        
+    }
 
     const cancelEdit = () => {
         editForm.style.display="none"
@@ -40,14 +44,12 @@ export default function UserHeader() {
         username.style.display = "inline-block"
     }
 
-    useEffect(() => {
-        dispatch(getProfile)
-       
+    useEffect(() => {       
         if(login.data !== null) {
             setFirstName(login.data.body.firstName)
             setLastName(login.data.body.lastName)
         }
-    }, [login, dispatch])
+    }, [login])
     
     return(
         <div className="header">
