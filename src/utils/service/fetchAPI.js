@@ -1,4 +1,4 @@
-import {  selectToken, userData, userLogin, userLogout } from "../../features/user";
+import {  selectToken, userData, userEdit, userLogin, userLogout } from "../../features/user";
 
 
 /**
@@ -76,6 +76,6 @@ export const editUser = (token, user) => {
       body : JSON.stringify(user)
     })
     .then(response => response.json())
-    .then (data => console.log(data))
+    .then (data => dispatch(userEdit(data)))
   }
 }

@@ -15,7 +15,7 @@ const USER_EDIT = "userEdit"
 export const userLogin = (data) => ( { type : LOGGED_IN, payload: data})
 export const userLogout = () => ({ type : LOGGED_OUT})
 export const userData = (data) => ({type: USER_DATA, payload: data}) 
-export const userEdit = (firstname, lastname) => ({ type: USER_EDIT})
+export const userEdit = (data) => ({ type: USER_EDIT, payload: data})
 
 //Reducer
 export function userReducer(state = intialState, action) {
@@ -43,6 +43,15 @@ export function userReducer(state = intialState, action) {
             data: action.payload
         }
     }
+
+    if(action.type === USER_EDIT) {
+        return {
+            ...state,
+            logged: true,
+            data: action.payload
+        }
+    }
+
     return state
 }
 
