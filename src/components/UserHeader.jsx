@@ -8,7 +8,6 @@ export default function UserHeader() {
     const login = useSelector(selectToken)
     const dispatch = useDispatch()
     const token = store.getState().user.token
-    console.log(token)
 
     //Component local data
     const [firstName, setFirstName] = useState('')
@@ -46,8 +45,8 @@ export default function UserHeader() {
 
     useEffect(() => {       
         if(login.data !== null) {
-            setFirstName(login.data.body.firstName)
-            setLastName(login.data.body.lastName)
+            setFirstName(login.data.firstName)
+            setLastName(login.data.lastName)
         }
     }, [login])
     
