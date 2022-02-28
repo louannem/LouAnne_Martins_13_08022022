@@ -1,5 +1,4 @@
-import { userData, userLogin, userLogout } from "../../features/user";
-
+import { dataFetching, dataRejected, userData, userLogin, userLogout } from "../../features/user";
 
 /**
  * Thunk to connect the user to the app
@@ -18,7 +17,6 @@ export const logAPI = (data) => {
       .then(response =>  response.json())
       .then(data => {
         dispatch(userLogin(data.body.token))
-        dispatch(getData(data.body.token))
         localStorage.setItem('token', data.body.token)
       })
       .catch((error) => {
@@ -41,6 +39,27 @@ export const logout = () => {
   }
 }
 
+export const getProfile = async (store, token) => {
+  store.dispatch(dataFetching())
+  
+  try {
+    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+  },)
+    const data = await response.json()
+    store.dispatch(userData(data.body))
+   
+  }
+  catch(error) {
+    store.dispatch(dataRejected(error))
+    console.log(error)
+  }
+  
+}
 
 export const getData = (token) => {
   return(dispatch) => {

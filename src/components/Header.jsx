@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector, useStore } from 'react-redux'
 import { logout } from '../utils/service/fetchAPI'
-import { selectorUserLog, selectUserName,  } from '../features/user'
+import { selectorUserLog, selectState,  } from '../features/user'
 import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
+
 export default function Header() {
+    //Hooks
+    const store = useStore()
+
     //Selectors to get store's data
     const loggedIn = useSelector(selectorUserLog())
-    const userData = useSelector(selectUserName)
+    const userData = useSelector(selectState).data
+    const state = store.getState().user
 
     //Component local data
     const [firstname, setFirstName] = useState('')
@@ -40,7 +44,7 @@ export default function Header() {
                 </Link>
             </div>
             }
-            {loggedIn  &&
+            {state.status === "resolved"  &&
             <div>
                 <Link className="main-nav-item" to='/profile'>
                     <i className="fa fa-user-circle"></i>
@@ -52,7 +56,13 @@ export default function Header() {
                     Sign Out
                 </Link>
             </div>
-            }           
+            }  
+            {state.status === "pending" && 
+            <Link className="main-nav-item" to='/profile'>
+                <i className="fa fa-user-circle"></i>
+                Username
+            </Link>
+            }         
 
         </nav>
     )

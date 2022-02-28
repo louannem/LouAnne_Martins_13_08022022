@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { store } from "../utils/store"
-import { selectData } from "../features/user"
+import { useDispatch, useSelector, useStore } from "react-redux"
+//import { store } from "../utils/store"
+import { selectState } from "../features/user"
 import { editUser } from "../utils/service/fetchAPI"
 
 export default function UserHeader() {
-    const login = useSelector(selectData)
+    const login = useSelector(selectState)
     const dispatch = useDispatch()
+    const store = useStore()
+
     const token = store.getState().user.token
+    
     
 
     //Component local data
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [firstName, setFirstName] = useState('Firstname')
+    const [lastName, setLastName] = useState('Lastname')
 
     //DOM elements
     const username = document.querySelector('h1 span')
@@ -34,8 +37,7 @@ export default function UserHeader() {
         editButton.style.display = "inline-block"
         username.style.display = "inline-block"
 
-        dispatch(editUser(token, newName))
-        
+        dispatch(editUser(token, newName))   
     }
 
     const cancelEdit = () => {
@@ -44,12 +46,13 @@ export default function UserHeader() {
         username.style.display = "inline-block"
     }
 
-    useEffect(() => {       
+    useEffect(() => {     
         if(login.data !== null) {
-            setFirstName(login.data.firstName)
-            setLastName(login.data.lastName)
+           setFirstName(login.data.firstName)
+            setLastName(login.data.lastName) 
         }
-    }, [login])
+        
+    }, [login, token, store])
     
     return(
         <div className="header">
