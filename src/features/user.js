@@ -17,10 +17,11 @@ const USER_DATA = "userData"
 
 
 //Actions
-export const userLogin = (data) => ( { type : LOGGED_IN, payload: data})
+export const userLogin = (data) => ({ type : LOGGED_IN, payload: data})
 export const userLogout = () => ({ type : LOGGED_OUT})
 export const userData = (data) => ({type: USER_DATA, payload: data}) 
 
+//Actions for loading and error handling
 export const dataFetching = () => ({type: FETCHING})
 export const dataRejected = (error) => ({ type: REJECTED, payload: error})
 
@@ -60,12 +61,17 @@ export function userReducer(state = intialState, action) {
                 error: action.payload
             }
         }
+        return {
+            ...state,
+            status: "rejected",
+            logged: false,
+            error: action.payload
+        }
     }
 
     if(action.type === LOGGED_IN) {
         return{
             ...state,
-            status: 'pending',
             logged : true,
             token: action.payload
         }
@@ -77,7 +83,7 @@ export function userReducer(state = intialState, action) {
             status: 'void',
             logged: false,
             token: null,
-            data: null
+            data: null, error: null
         }
     }
 
@@ -96,4 +102,5 @@ export function userReducer(state = intialState, action) {
 //Selectors
 export const selectorUserLog = () => { return (state) => state.user.logged}
 export const selectState = (state) => state.user
+export const selectError = (state) => state.user.error
 export const selectData = (state) => state.user.data

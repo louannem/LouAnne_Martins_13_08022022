@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './utils/store';
 import Home from './pages/Home';
 import Login from './pages/Login'
-import Error from './pages/Error'
+import Error from './components/Error'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import User from './pages/User';

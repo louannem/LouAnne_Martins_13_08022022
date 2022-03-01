@@ -17,7 +17,7 @@ export default function User() {
     
 
     useEffect(() => {
-        getProfile(store, token) 
+         getProfile(store, token)
 
         const routeChange = () =>{ 
             let path = `/login`; 
@@ -27,11 +27,6 @@ export default function User() {
         if(!loggedUser) { routeChange()}
     }, [store, token, loggedUser, navigate])
     
-    if(state.error !== null) {
-        return (
-        <h1>Impossible de récupérer les données</h1>
-        )
-    }
 
     return(
         

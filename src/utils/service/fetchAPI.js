@@ -14,13 +14,14 @@ export const logAPI = (data) => {
         },
         body: JSON.stringify(data),
       })
+      
       .then(response =>  response.json())
       .then(data => {
         dispatch(userLogin(data.body.token))
         localStorage.setItem('token', data.body.token)
       })
       .catch((error) => {
-        //To add : error handling
+        dispatch(dataRejected('Unknown email and/or password.'))
         console.error('Error:', error);
       })  
   }
