@@ -27,7 +27,7 @@ export const dataRejected = (error) => ({ type: REJECTED, payload: error})
 
 
 //Reducer
-export function userReducer(state = intialState, action) {
+/*export function userReducer(state = intialState, action) {
     if(action.type === FETCHING) {
         if(state.status === "void") {
             return{
@@ -96,11 +96,79 @@ export function userReducer(state = intialState, action) {
         }
     }
     return state
+}*/
+
+//IF TO SWITCH
+export function userReducer(state = intialState, action) {
+    switch (action.type) {
+        case FETCHING: {
+            if(state.status === "void") {
+                return{
+                    ...state,
+                    status: 'pending'
+                }
+            }
+    
+            if(state.status === 'rejected') {
+                return{
+                    ...state,
+                    status: 'pending',
+                    error: null
+                }
+            }
+    
+            if(state.status === 'resolved') {
+                return{
+                    ...state,
+                    status: 'updating',
+                }
+            }
+            return state
+        }
+
+        case REJECTED: {
+            if(state.status === "pending" || state.status === "updating") {
+                return{
+                    ...state,
+                    status: "rejected",
+                    error: action.payload
+                }
+            }
+            return {
+                ...state,
+                status: "rejected",
+                logged: false,
+                error: action.payload
+            }
+        }
+
+        case LOGGED_IN: {
+            return{
+                ...state,
+                logged : true,
+                token: action.payload
+            }
+        }
+
+        case LOGGED_OUT: {
+            return {
+                ...state,
+                status: 'void',
+                logged: false,
+                token: null,
+                data: null, error: null
+            }
+        }
+
+        case USER_DATA: {
+            return {
+                ...state,
+                status: 'resolved',
+                logged: true,
+                data: action.payload
+            }
+        }
+        default:
+            return state
+    }
 }
-
-
-//Selectors
-export const selectorUserLog = () => { return (state) => state.user.logged}
-export const selectState = (state) => state.user
-export const selectError = (state) => state.user.error
-export const selectData = (state) => state.user.data

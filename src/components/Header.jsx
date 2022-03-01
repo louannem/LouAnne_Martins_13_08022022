@@ -1,20 +1,17 @@
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector, useStore } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../utils/service/fetchAPI'
-import { selectorUserLog, selectState,  } from '../features/user'
+import { selectorUserLog, selectState,  } from '../redux/selectors'
 import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
 import { useEffect, useState } from 'react'
 
 
 export default function Header() {
-    //Hooks
-    const store = useStore()
-
     //Selectors to get store's data
     const loggedIn = useSelector(selectorUserLog())
     const userData = useSelector(selectState).data
-    const state = store.getState().user
+    const state = useSelector(selectState)
 
     //Component local data
     const [firstname, setFirstName] = useState('')

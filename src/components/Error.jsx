@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectError } from "../features/user"
+import { selectError } from "../redux/selectors"
 
 export default function Error() {
     const error = useSelector(selectError)

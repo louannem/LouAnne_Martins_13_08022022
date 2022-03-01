@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux'
 import '../utils/styles/SignInForm.css'
 
 export default function SignInForm() {
-    //DOM elements
-    const loginButton = document.querySelector('.sign-in-button')
-
     //Local props to get user's id
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
@@ -59,10 +56,7 @@ export default function SignInForm() {
     const handleSubmit = (e) => {      
         e.preventDefault()
         
-        if(validateForm() && !error) {  
-            loginButton.textContent = "Connexion..."
-            dispatch(logAPI(userInfo)) 
-        } 
+        if(validateForm() && !error) {   dispatch(logAPI(userInfo))  } 
     }
     
     const userInfo = {

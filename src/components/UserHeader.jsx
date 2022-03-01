@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector, useStore } from "react-redux"
 //import { store } from "../utils/store"
-import { selectState } from "../features/user"
+import { selectState } from "../redux/selectors"
 import { editUser } from "../utils/service/fetchAPI"
 
 export default function UserHeader() {
-    const login = useSelector(selectState)
+    const user = useSelector(selectState)
     const dispatch = useDispatch()
     const store = useStore()
 
     const token = store.getState().user.token
     
-    
-
     //Component local data
     const [firstName, setFirstName] = useState('Firstname')
     const [lastName, setLastName] = useState('Lastname')
@@ -22,12 +20,18 @@ export default function UserHeader() {
     const editButton = document.querySelector('.edit-button')
     const editForm = document.querySelector('.edit-form')
 
+    /**
+     * Function to hide the user's fistname.lastname onclick
+     */
     const hideName = () => {
         username.style.display = "none"
         editButton.style.display = "none"
         editForm.style.display = "flex"
     }
 
+    /**
+     * Function to update the user's name
+     */
     const handleSubmit = () => {
         const newName = {
             firstName,
@@ -40,6 +44,9 @@ export default function UserHeader() {
         dispatch(editUser(token, newName))   
     }
 
+    /**
+     * Function to cancel an edit by closing the form
+     */
     const cancelEdit = () => {
         editForm.style.display="none"
         editButton.style.display = "inline-block"
@@ -47,16 +54,16 @@ export default function UserHeader() {
     }
 
     useEffect(() => {     
-        if(login.data !== null) {
-           setFirstName(login.data.firstName)
-            setLastName(login.data.lastName) 
+        if(user.data !== null) {
+            setFirstName(user.data.firstName)
+            setLastName(user.data.lastName) 
         }
         
-    }, [login, token, store])
+    }, [user, token, store])
     
     return(
         <div className="header">
-            <h1>Welcome back<br /> <span>{firstName} {lastName} !</span> </h1>
+            <h1>Welcome back<br /> {user.status !== "updating" &&<span>{firstName} {lastName} !</span>} </h1>
 
                 <form className="edit-form" onSubmit={(e) =>{ 
                     e.preventDefault()

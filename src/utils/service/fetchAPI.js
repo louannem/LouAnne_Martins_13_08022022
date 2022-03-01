@@ -1,4 +1,4 @@
-import { dataFetching, dataRejected, userData, userLogin, userLogout } from "../../features/user";
+import { dataFetching, dataRejected, userData, userLogin, userLogout } from "../../redux/user";
 
 /**
  * Thunk to connect the user to the app
@@ -22,7 +22,7 @@ export const logAPI = (data) => {
       })
       .catch((error) => {
         dispatch(dataRejected('Unknown email and/or password.'))
-        console.error('Error:', error);
+        console.error('Error:', error)
       })  
   }
 }
@@ -58,35 +58,12 @@ export const getProfile = async (store, token) => {
   catch(error) {
     store.dispatch(dataRejected(error))
     console.log(error)
-  }
-  
+  }  
 }
-
-export const getData = (token) => {
-  return(dispatch) => {
-    fetch('http://localhost:3001/api/v1/user/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    },)
-    .then(response => response.json())
-    .then( data => {
-      dispatch(userData(data.body))
-      localStorage.setItem('firstname', data.body.firstName)
-      localStorage.setItem('lastname', data.body.lastName)
-    })
-    .catch( (error) => {
-      console.log(error)
-    })
-   
-  }
-}
-
 
 export const editUser = (token, user) => {
   return(dispatch) => {
+    dispatch(dataFetching())
     fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'PUT',
       headers: {

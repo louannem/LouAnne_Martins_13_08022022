@@ -3,28 +3,23 @@ import { getProfile } from "../utils/service/fetchAPI";
 import Transaction from "../components/Transaction";
 import UserHeader from "../components/UserHeader";
 import "../utils/styles/User.css"
-import { useEffect } from "react";
+import { useEffect } from "react"
 import { useStore } from "react-redux"
 
 
 export default function User() { 
+    //Hooks
     const store = useStore()
     let navigate = useNavigate()
 
+    //Retreives app's state
     const loggedUser = store.getState().user.logged
-    const state = store.getState().user
     const token = store.getState().user.token
     
 
     useEffect(() => {
-         getProfile(store, token)
-
-        const routeChange = () =>{ 
-            let path = `/login`; 
-            navigate(path)
-          }
-
-        if(!loggedUser) { routeChange()}
+        if(!loggedUser) { navigate("/login") } 
+        else { getProfile(store, token) }
     }, [store, token, loggedUser, navigate])
     
 
