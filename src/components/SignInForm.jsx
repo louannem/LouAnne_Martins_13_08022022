@@ -21,10 +21,7 @@ export default function SignInForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const tokenInRedux = useSelector(state => state.user.token)
-    const tokenInLocaleStorage = localStorage.getItem('token')
-    const token = tokenInLocaleStorage ? tokenInLocaleStorage : tokenInRedux
-  
+    const token = useSelector(state => state.user.token)  
 
     /**
      * Function to validate the form's inputs
@@ -54,8 +51,7 @@ export default function SignInForm() {
      * @param {*} e event
      */
     const handleSubmit = (e) => {      
-        e.preventDefault()
-        
+        e.preventDefault()    
         if(validateForm() && !error) {   dispatch(logAPI(userInfo))  } 
     }
     
