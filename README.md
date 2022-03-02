@@ -8,7 +8,6 @@ Banking account application developped with Reacy & Redux.
 - Redux v4.1.2
 - React-Redux v7.2.6
 - React Toolkit v1.7.2
-
 - MongoDB Community Server
 - Recommended text editor: Visual Studio Code
 
