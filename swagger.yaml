@@ -1,0 +1,241 @@
+swagger: '2.0'
+info:
+  description: Contains all available API endpoints in this codebase for a user's bank account
+  version: 1.0.0
+  title: Bank Argent API documentation
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /v1
+tags:
+  - name: Transactions Module
+schemes:
+  - http
+paths:
+  /user/{accountID}:
+    get:
+      security:
+        - Bearer : []
+      tags:
+        - Transactions Module
+      summary: User balance API
+      description: "API for fetching a user balances"
+      operationId: getBalances
+      consumes:
+        - string
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountID
+          type: string
+          description: User bank account ID
+          required: true
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successfuly retreived data
+          schema:
+            $ref: "#/definitions/Account"
+        '400':
+          description: Invalid token or id
+        '500':
+          description: Internal server error
+  /user/{accountID}/{transactionID}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: User last transactions API
+      description: "API for fetching an account transactions"
+      operationId: getTransactions
+      consumes:
+        - string
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountID
+          type: string
+          description: User bank account ID
+          required: true
+        - in: path
+          name: transactionID
+          type: string
+          description: Transaction ID
+          required: true
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successfuly retreived transaction's details
+          schema: 
+            $ref: "#/definitions/Transaction"
+        '400':
+          description: Invalid token or id
+        '500':
+          description: Internal server error
+    put:
+      security:
+        - Bearer: []
+      tags: 
+        - Transactions Module
+      summary: User last transactions API
+      description: "API for updating a transaction details"
+      operationId: editTransactions
+      consumes:
+        - string
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountID
+          type: string
+          description: User bank account ID
+          required: true
+        - in: path
+          name: transactionID
+          type: string
+          description: Transaction ID
+          required: true
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in : body
+          name: body
+          description: Updated transaction details
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        '200':
+          description: Transaction's details successfully updated
+          schema:
+            $ref: "#/definitions/APIResponse"
+        '400':
+          description: Invalid token or id
+        '500':
+          description: Internal server error
+          
+securityDefinitions:
+  Bearer:
+    in: header
+    type: apiKey
+    name: Authorization
+    
+    
+definitions:
+
+  Account:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        body:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Bank Account 
+              example: "Argent Bank Checking (x8349)"
+            balance:
+              type: integer
+              description: Account available balance
+              example: 2,082.79
+            transactionsID: 
+              type: array
+              description: List of transactions on the account
+              items:
+                type: string
+              example: ["37463746", "8277826"]
+              
+       
+  Transaction:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          accountID:
+            type: string
+            description: bank account ID
+            example: "x8349" 
+          date:
+            type: string
+            description: transaction's date
+            example: "June 20th, 2020"
+          description:
+            type: string
+            description: transaction's name
+            example: "Golden Sun Bakery"
+          amount:
+            type: integer
+            description: transaction amount
+            example: 5.00
+          balance:  
+            type: integer
+            description: accoun't balance after transaction
+            example: 2082.79
+          transactionType:
+            type: string
+            description: transaction's type
+            example: Bakery
+          category:
+            type: string
+            description: transaction's category
+            example: "Food"
+          notes:
+            type: string
+            description: user's additional notes
+            example: ""
+          
+          
+ 
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+        description: transaction's category
+      notes:
+        type: string
+        description: user's additional notes
+        
+        
+  APIResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          userID:
+            type: string
+            description: user ID
+          transactionID:
+            type: string
+            description: updated transaction ID
+          category:
+            type: string
+            description: transaction's category
+          notes:
+            type: string
+            description: user's additional notes
