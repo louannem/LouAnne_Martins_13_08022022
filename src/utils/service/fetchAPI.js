@@ -3,7 +3,7 @@ import { dataFetching, dataRejected, userData, userLogin, userLogout } from "../
 /**
  * Thunk to connect the user to the app
  * @param {*} data user login data collected from the API
- * @returns object fetched data
+ * @returns fonction
  */
 export const logAPI = (data) => {
   return (dispatch) => {
@@ -31,7 +31,7 @@ export const logAPI = (data) => {
 
 /**
  * Thunk to log out the user & removes their token
- * @returns thunk
+ * @returns fonction
  */
 export const logout = () => {
   return (dispatch) => {
@@ -40,9 +40,13 @@ export const logout = () => {
   }
 }
 
+/**
+ * Service to get user profile if connected
+ * @param {*} store redux hook useStore in variable 
+ * @param {*} token authorization key in header 
+ */
 export const getProfile = async (store, token) => {
   store.dispatch(dataFetching())
-  
   try {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'POST',
@@ -53,6 +57,7 @@ export const getProfile = async (store, token) => {
   },)
     const data = await response.json()
     store.dispatch(userData(data.body))
+    localStorage.setItem('token', token)
    
   }
   catch(error) {
@@ -61,6 +66,12 @@ export const getProfile = async (store, token) => {
   }  
 }
 
+/**
+ * Thunk to update user profile
+ * @param {string} token authorization key in header 
+ * @param {object} user User data in body to send 
+ * @returns Change confirmation: status, message, and user mail and ID
+ */
 export const editUser = (token, user) => {
   return(dispatch) => {
     //dispatch(dataFetching())

@@ -5,6 +5,7 @@ import { selectState } from "../redux/selectors"
 import { editUser } from "../utils/service/fetchAPI"
 
 export default function UserHeader() {
+    //Hooks
     const user = useSelector(selectState)
     const dispatch = useDispatch()
     const store = useStore()
@@ -57,8 +58,7 @@ export default function UserHeader() {
         if(user.data !== null) {
             setFirstName(user.data.firstName)
             setLastName(user.data.lastName) 
-        }
-        
+        }      
     }, [user, token, store])
     
     return(
