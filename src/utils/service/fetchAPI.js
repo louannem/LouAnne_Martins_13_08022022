@@ -63,7 +63,7 @@ export const getProfile = async (store, token) => {
 
 export const editUser = (token, user) => {
   return(dispatch) => {
-    dispatch(dataFetching())
+    //dispatch(dataFetching())
     fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'PUT',
       headers: {
