@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import '../utils/styles/SignInForm.css'
 
+/**
+ * Login form found on login page
+ * @returns HTML component
+ */
 export default function SignInForm() {
     //Local props to get user's id
     const [email, setEmail] = useState(null)

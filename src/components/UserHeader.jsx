@@ -4,6 +4,10 @@ import { useDispatch, useSelector, useStore } from "react-redux"
 import { selectState } from "../redux/selectors"
 import { editUser } from "../utils/service/fetchAPI"
 
+/**
+ * User header found on profile page
+ * @returns HTML component
+ */
 export default function UserHeader() {
     //Hooks
     const user = useSelector(selectState)
@@ -31,7 +35,7 @@ export default function UserHeader() {
     }
 
     /**
-     * Function to update the user's name
+     * Function to update the user's name on submit
      */
     const handleSubmit = () => {
         const newName = {

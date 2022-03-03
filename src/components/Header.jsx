@@ -6,7 +6,10 @@ import logo from '../assets/argentBankLogo.png'
 import '../utils/styles/Header.css'
 import { useEffect, useState } from 'react'
 
-
+/**
+ * Application header 
+ * @returns HTML component
+ */
 export default function Header() {
     //Selectors to get store's data
     const loggedIn = useSelector(selectorUserLog())

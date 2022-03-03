@@ -1,5 +1,9 @@
 import '../utils/styles/Hero.css'
 
+/**
+ * Hero banner on homepage
+ * @returns HTML component
+ */
 export default function Hero() {
     return(
         <div className="hero">

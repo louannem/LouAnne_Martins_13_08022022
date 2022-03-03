@@ -11,7 +11,7 @@ tags:
 schemes:
   - http
 paths:
-  /user/{accountID}:
+  /user/profile/{accountID}:
     get:
       security:
         - Bearer : []
@@ -44,7 +44,7 @@ paths:
           description: Invalid token or id
         '500':
           description: Internal server error
-  /user/{accountID}/{transactionID}:
+  /user/profile/{accountID}/{transactionID}:
     get:
       security:
         - Bearer: []

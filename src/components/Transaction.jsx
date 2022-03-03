@@ -1,3 +1,10 @@
+/**
+ * User's bank account on profile page
+ * @param {string} title Account name 
+ * @param {string} amount Available/current amount in account
+ * @param {string} description Amount description
+ * @returns HTML component
+ */
 export default function Transaction({title, amount, description}) {
     return(
         <section className="account">

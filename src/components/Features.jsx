@@ -3,6 +3,10 @@ import securityIcon from '../assets/icon-security.png'
 import chatIcon from '../assets/icon-chat.png'
 import '../utils/styles/Features.css'
 
+/**
+ * Features block on homepage
+ * @returns HTML component
+ */
 export default function Features() {
     return(
         <section className="features">
