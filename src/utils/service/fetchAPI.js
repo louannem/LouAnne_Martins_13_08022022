@@ -8,7 +8,7 @@ import { dataFetching, dataRejected, userData, userLogin, userLogout } from "../
 export const logAPI = (data) => {
   return (dispatch) => {
     fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST', // or 'PUT'
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
         },
