@@ -26,8 +26,6 @@ export const dataFetching = () => ({type: FETCHING})
 export const dataRejected = (error) => ({ type: REJECTED, payload: error})
 
 
-
-//IF TO SWITCH
 export function userReducer(state = intialState, action) {
     switch (action.type) {
         case FETCHING: {
